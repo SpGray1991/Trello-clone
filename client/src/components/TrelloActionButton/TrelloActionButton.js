@@ -1,11 +1,11 @@
 import Icon from "@mui/material/Icon";
 import "./TrelloActionButton.scss";
 
-function TrelloActionButton(props) {
-  const buttonText = props.list ? "Add another list" : "Add another card";
+function TrelloActionButton({ openForm, list }) {
+  const buttonText = list ? "Add another list" : "Add another card";
 
   return (
-    <div className="openForButtonGroup">
+    <div className="openForButtonGroup" onClick={openForm}>
       <Icon>add</Icon>
       <p>{buttonText}</p>
     </div>

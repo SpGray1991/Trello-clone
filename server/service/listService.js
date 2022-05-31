@@ -1,4 +1,4 @@
-import listModel from "./models/listModel.js";
+import listModel from "../models/listModel.js";
 
 class listService {
   async create(list) {

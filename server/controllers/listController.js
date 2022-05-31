@@ -1,4 +1,4 @@
-import listService from "./listService.js";
+import listService from "../service/listService.js";
 
 class listController {
   async create(req, res) {

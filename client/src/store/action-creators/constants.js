@@ -1,3 +1,5 @@
 export const CONSTANTS = {
+  ADD_LISTS: "ADD_LISTS",
+  LISTS_ERROR: "LISTS_ERROR",
   ADD_CARD: "ADD_CARD",
 };

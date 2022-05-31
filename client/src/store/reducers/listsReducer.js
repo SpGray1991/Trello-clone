@@ -1,5 +1,10 @@
-const initialState = [
-  {
+import { CONSTANTS } from "../action-creators/constants";
+
+const initialState = {
+  lists: [],
+  error: null,
+};
+/* {
     title: "Horizon Zero Dawn",
     id: 0,
     cards: [
@@ -26,30 +31,21 @@ const initialState = [
         text: "Lorem ipsum4",
       },
     ],
-  },
-];
+  }, */
 
 export const listsReducer = (state = initialState, action) => {
   switch (action.type) {
-    /*  case FilmActionTypes.API_FILMS:
-      return { loading: true, error: null, films: [] };
-
-    case FilmActionTypes.API_FILMS_SUCCESS:
+    case CONSTANTS.ADD_LISTS:
       return {
-        loading: false,
         error: null,
-        films: action.payload,
+        lists: action.payload,
       };
 
-    case FilmActionTypes.API_FILMS_ERROR:
+    case CONSTANTS.LISTS_ERROR:
       return {
-        loading: false,
         error: action.payload,
-        films: [],
+        lists: [],
       };
-
-    case FilmActionTypes.SET_FILMS:
-      return { ...state, films: [...state.films, ...action.payload] }; */
 
     default:
       return state;

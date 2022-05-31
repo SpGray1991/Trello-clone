@@ -1,15 +1,26 @@
-import Icon from "@mui/material/Icon";
-import "./TrelloActionButton.scss";
+import { useState } from "react";
+import TrelloForm from "../TrelloForm/TrelloForm";
+import TrelloButton from "../TrelloButton/TrelloButton";
 
-function TrelloActionButton({ openForm, list }) {
-  const buttonText = list ? "Add another list" : "Add another card";
+const TrelloActionButton = ({ list }) => {
+  const [form, setForm] = useState(false);
 
+  const openForm = () => {
+    setForm(true);
+  };
+
+  const closeForm = (e) => {
+    setForm(false);
+  };
   return (
-    <div className="openForButtonGroup" onClick={openForm}>
-      <Icon>add</Icon>
-      <p>{buttonText}</p>
+    <div>
+      {form ? (
+        <TrelloForm list={list} closeForm={closeForm} />
+      ) : (
+        <TrelloButton list={list} openForm={openForm} />
+      )}
     </div>
   );
-}
+};
 
 export default TrelloActionButton;

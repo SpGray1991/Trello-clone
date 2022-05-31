@@ -1,12 +1,12 @@
 import Router from "express";
-import ColumnController from "./ColumnController.js";
+import listController from "./listController.js";
 
 const router = new Router();
 
-router.post("/columns", ColumnController.create);
-router.get("/columns", ColumnController.getAll);
-router.get("/columns/:id", ColumnController.getOne);
-router.put("/columns", ColumnController.update);
-router.delete("/columns/:id", ColumnController.delete);
+router.post("/lists", listController.create);
+router.get("/lists", listController.getAll);
+router.get("/lists/:id", listController.getOne);
+router.put("/lists", listController.update);
+router.delete("/lists/:id", listController.delete);
 
 export default router;

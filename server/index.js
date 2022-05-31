@@ -7,7 +7,7 @@ const DB_URL = `mongodb+srv://Gray1991:z1x2c3v4@cluster0.iqjmk.mongodb.net/?retr
 
 const app = express();
 app.use(express.json());
-app.use("/api", router);
+app.use("/apiLists", router);
 
 async function start() {
   try {

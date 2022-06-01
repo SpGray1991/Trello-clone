@@ -2,7 +2,7 @@ import { useState } from "react";
 import TrelloForm from "../TrelloForm/TrelloForm";
 import TrelloButton from "../TrelloButton/TrelloButton";
 
-const TrelloActionButton = ({ list }) => {
+const TrelloActionButton = ({ list, listId }) => {
   const [form, setForm] = useState(false);
 
   const openForm = () => {
@@ -15,7 +15,7 @@ const TrelloActionButton = ({ list }) => {
   return (
     <div>
       {form ? (
-        <TrelloForm list={list} closeForm={closeForm} />
+        <TrelloForm list={list} closeForm={closeForm} listId={listId} />
       ) : (
         <TrelloButton list={list} openForm={openForm} />
       )}

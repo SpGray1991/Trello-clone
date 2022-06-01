@@ -6,10 +6,10 @@ import "./TrelloForm.scss";
 import Icon from "@mui/material/Icon";
 import { useActions } from "../../hooks/useActions";
 
-const TrelloForm = ({ list, closeForm }) => {
+const TrelloForm = ({ list, closeForm, listId }) => {
   const [text, setText] = useState("");
 
-  const { addListAC, getListsAC } = useActions();
+  const { addListAC, addCardAC } = useActions();
 
   const placeholder = list
     ? "Enter list title..."
@@ -23,7 +23,13 @@ const TrelloForm = ({ list, closeForm }) => {
     if (text) {
       addListAC(text);
     }
-    getListsAC();
+  };
+
+  const handleAddCard = () => {
+    if (text) {
+      addCardAC(text, listId);
+    }
+    console.log("listID", listId);
   };
 
   const buttonTitle = list ? "Add List" : "Add Card";
@@ -45,7 +51,7 @@ const TrelloForm = ({ list, closeForm }) => {
         <Button
           className="bbbb"
           variant="contained"
-          onMouseDown={handleAddList}
+          onMouseDown={list ? handleAddList : handleAddCard}
         >
           {buttonTitle}
         </Button>

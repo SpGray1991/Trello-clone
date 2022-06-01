@@ -7,17 +7,19 @@ import { useActions } from "./hooks/useActions";
 
 function App() {
   const lists = useSelector((state) => state.lists.lists);
+  const cards = useSelector((state) => state.cards.cards);
 
-  const { getListsAC } = useActions();
+  const { getListsAC, getCardsAC } = useActions();
 
   useEffect(() => {
     getListsAC();
+    getCardsAC();
   }, []);
 
   return (
     <div className="listsContainer">
       {lists.map((list) => (
-        <TrelloList title={list.title} /* cards={list.cards} */ />
+        <TrelloList title={list.title} cards={cards} listId={list._id} />
       ))}
 
       <TrelloActionButton list />

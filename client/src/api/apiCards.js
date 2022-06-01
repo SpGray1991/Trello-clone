@@ -1,9 +1,10 @@
 import axios from "axios";
 
 export const cardsApi = {
-  async createCard(text) {
+  async createCard(text, listId) {
+    console.log("124346", listId, { text, listId });
     return await axios
-      .post(`http://localhost:5000/apiCards/cards`, { text })
+      .post(`http://localhost:5000/apiCards/cards`, { text, listId })
       .then((response) => {
         return response.data;
       });

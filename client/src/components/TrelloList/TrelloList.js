@@ -1,16 +1,16 @@
 import TrelloActionButton from "../TrelloActionButton/TrelloActionButton";
-/* import TrelloCard from "../TrelloCard/TrelloCard"; */
+import TrelloCard from "../TrelloCard/TrelloCard";
 import "./TrelloList.scss";
 
-const TrelloList = ({ title, cards }) => {
+const TrelloList = ({ title, cards, listId }) => {
   return (
     <div className="container">
       <h1>{title}</h1>
-      {/* {cards.map((card) => (
+      {cards.map((card) => (
         <TrelloCard key={card.id} text={card.text} />
-      ))} */}
+      ))}
 
-      <TrelloActionButton />
+      <TrelloActionButton listId={listId} />
     </div>
   );
 };

@@ -15,10 +15,10 @@ export const getCardsAC = () => {
   };
 };
 
-export const addCardAC = (text) => {
+export const addCardAC = (text, listId) => {
   return async (dispatch) => {
     try {
-      const response = await cardsApi.createCard(text);
+      const response = await cardsApi.createCard(text, listId);
       dispatch({ type: CONSTANTS.ADD_CARD, payload: response });
     } catch (e) {
       dispatch({

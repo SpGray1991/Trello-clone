@@ -1,9 +1,9 @@
 import axios from "axios";
 
 export const listsApi = {
-  async createList() {
+  async createList(title) {
     return await axios
-      .post(`http://localhost:5000/apiLists/lists`)
+      .post(`http://localhost:5000/apiLists/lists`, { title })
       .then((response) => {
         return response.data;
       });

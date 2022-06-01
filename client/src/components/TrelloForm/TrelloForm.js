@@ -4,9 +4,12 @@ import Textarea from "react-textarea-autosize";
 import { useState } from "react";
 import "./TrelloForm.scss";
 import Icon from "@mui/material/Icon";
+import { useActions } from "../../hooks/useActions";
 
 const TrelloForm = ({ list, closeForm }) => {
   const [text, setText] = useState("");
+
+  const { addListAC, getListsAC } = useActions();
 
   const placeholder = list
     ? "Enter list title..."
@@ -14,6 +17,13 @@ const TrelloForm = ({ list, closeForm }) => {
 
   const handleInputChange = (e) => {
     setText(e.target.value);
+  };
+
+  const handleAddList = () => {
+    if (text) {
+      addListAC(text);
+    }
+    getListsAC();
   };
 
   const buttonTitle = list ? "Add List" : "Add Card";
@@ -28,10 +38,15 @@ const TrelloForm = ({ list, closeForm }) => {
           value={text}
           onChange={handleInputChange}
           className="textarea"
+          name="title"
         />
       </Card>
       <div className="formButtonGroup">
-        <Button className="bbbb" variant="contained">
+        <Button
+          className="bbbb"
+          variant="contained"
+          onMouseDown={handleAddList}
+        >
           {buttonTitle}
         </Button>
         <Icon className="closeBtn">close</Icon>

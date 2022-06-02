@@ -29,7 +29,6 @@ const TrelloForm = ({ list, closeForm, listId }) => {
     if (text) {
       addCardAC(text, listId);
     }
-    console.log("listID", listId);
   };
 
   const buttonTitle = list ? "Add List" : "Add Card";

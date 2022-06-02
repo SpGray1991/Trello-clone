@@ -6,10 +6,11 @@ const TrelloList = ({ title, cards, listId }) => {
   return (
     <div className="container">
       <h1>{title}</h1>
-      {cards.map((card) => (
-        <TrelloCard key={card.id} text={card.text} />
-      ))}
-
+      {cards
+        .filter((card) => card.listId === listId)
+        .map((card) => (
+          <TrelloCard key={card._id} text={card.text} />
+        ))}
       <TrelloActionButton listId={listId} />
     </div>
   );

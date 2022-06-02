@@ -19,7 +19,12 @@ function App() {
   return (
     <div className="listsContainer">
       {lists.map((list) => (
-        <TrelloList title={list.title} cards={cards} listId={list._id} />
+        <TrelloList
+          key={list._id}
+          title={list.title}
+          cards={cards}
+          listId={list._id}
+        />
       ))}
 
       <TrelloActionButton list />

@@ -1,11 +1,14 @@
-.cardForm {
-  overflow: visible;
-  min-height: 80px;
-  min-width: 272px;
+.container-edit-form {
+  width: 284px;
+  margin-bottom: 8px;
+}
+
+.wrapper-textarea {
+  min-height: 85px;
   padding: 6px 8px 2px;
 }
 
-.textarea {
+.textarea-edit {
   resize: none;
   width: 100%;
   overflow: hidden;
@@ -13,13 +16,14 @@
   border: none;
 }
 
-.formButtonGroup {
+.button-container {
   margin-top: 8px;
   display: flex;
   align-items: center;
+  margin-left: 8px;
 }
 
-.closeBtn {
+.close {
   margin-left: 8px;
   cursor: pointer;
 }

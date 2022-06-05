@@ -30,7 +30,7 @@ class listController {
 
   async update(req, res) {
     try {
-      const updatedList = await listService.update(req.body);
+      const updatedList = await listService.update(req.body, req.params.id);
       return res.json(updatedList);
     } catch (e) {
       res.status(500).json(e.message);

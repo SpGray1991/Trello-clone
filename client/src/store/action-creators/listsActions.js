@@ -18,13 +18,31 @@ export const getListsAC = () => {
 export const addListAC = (title) => {
   return async (dispatch) => {
     try {
-      const response = await listsApi.createList(title);
-      dispatch({ type: CONSTANTS.ADD_LIST, payload: response });
+      await listsApi.createList(title);
+      const response = await listsApi.getLists();
+      dispatch({ type: CONSTANTS.GET_LISTS, payload: response });
     } catch (e) {
       dispatch({
         type: CONSTANTS.LISTS_ERROR,
         payload: "Произошла ошибка при загрузке списков!",
       });
     }
+  };
+};
+
+export const delListAC = (id) => {
+  return async (dispatch) => {
+    await listsApi.delList(id);
+    const response = await listsApi.getLists();
+    dispatch({ type: CONSTANTS.GET_LISTS, payload: response });
+  };
+};
+
+export const editListAC = (title, id) => {
+  console.log("EDIT", title, id);
+  return async (dispatch) => {
+    await listsApi.editList(title, id);
+    const response = await listsApi.getLists();
+    dispatch({ type: CONSTANTS.GET_LISTS, payload: response });
   };
 };

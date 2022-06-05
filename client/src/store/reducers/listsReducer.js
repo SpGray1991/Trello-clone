@@ -16,6 +16,12 @@ export const listsReducer = (state = initialState, action) => {
     case CONSTANTS.ADD_LIST:
       return { ...state, lists: [...state.lists, action.payload] };
 
+    case CONSTANTS.DEL_LIST:
+      return {
+        ...state,
+        lists: state.lists.filter((l) => l._id !== action.payload),
+      };
+
     case CONSTANTS.LISTS_ERROR:
       return {
         error: action.payload,

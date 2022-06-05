@@ -3,10 +3,13 @@ import TrelloCard from "../TrelloCard/TrelloCard";
 import "./TrelloList.scss";
 import { useState } from "react";
 import Icon from "@mui/material/Icon";
+import { useActions } from "../../hooks/useActions";
 
 const TrelloList = ({ title, cards, listId }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [listTitle, setListTitle] = useState(title);
+
+  const { delListAC, editListAC } = useActions();
 
   const renderEditInput = () => {
     return (
@@ -35,11 +38,12 @@ const TrelloList = ({ title, cards, listId }) => {
 
   const handleFinishEditing = (e) => {
     setIsEditing(false);
-    /*  dispatch(editTitle(listID, listTitle)); */
+    editListAC(listTitle, listId);
   };
 
   const handleDeleteList = () => {
-    /* dispatch(deleteList(listID)); */
+    delListAC(listId);
+    console.log("DEL");
   };
 
   return (

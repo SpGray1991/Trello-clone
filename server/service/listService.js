@@ -19,11 +19,11 @@ class listService {
     return list;
   }
 
-  async update(list) {
-    if (!list._id) {
+  async update(title, listId) {
+    if (!listId) {
       throw new Error("id не указан");
     }
-    const updatedList = await listModel.findByIdAndUpdate(list._id, list, {
+    const updatedList = await listModel.findByIdAndUpdate(listId, title, {
       new: true,
     });
     return updatedList;

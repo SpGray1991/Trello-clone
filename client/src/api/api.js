@@ -17,21 +17,22 @@ export const listsApi = {
   },
   async getOneList(id) {
     return await axios
-      .get(`http://localhost:5000/apiLists/lists/:${id}`)
+      .get(`http://localhost:5000/apiLists/lists/${id}`)
       .then((response) => {
         return response.data;
       });
   },
-  async addList() {
+  async editList(title, id) {
     return await axios
-      .put(`http://localhost:5000/apiLists/lists`)
+      .put(`http://localhost:5000/apiLists/lists/${id}`, { title })
       .then((response) => {
         return response.data;
       });
   },
   async delList(id) {
+    console.log("ID", id);
     return await axios
-      .delete(`http://localhost:5000/apiLists/lists/:${id}`)
+      .delete(`http://localhost:5000/apiLists/lists/${id}`)
       .then((response) => {
         return response.data;
       });

@@ -23,16 +23,16 @@ export const cardsApi = {
         return response.data;
       });
   },
-  async addCard() {
+  async editCard(text, id) {
     return await axios
-      .put(`http://localhost:5000/apiCards/cards`)
+      .put(`http://localhost:5000/apiCards/cards/${id}`, { text })
       .then((response) => {
         return response.data;
       });
   },
   async delCard(id) {
     return await axios
-      .delete(`http://localhost:5000/apiCards/cards/:${id}`)
+      .delete(`http://localhost:5000/apiCards/cards/${id}`)
       .then((response) => {
         return response.data;
       });

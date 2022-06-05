@@ -13,9 +13,6 @@ export const cardsReducer = (state = initialState, action) => {
         cards: action.payload,
       };
 
-    case CONSTANTS.ADD_CARD:
-      return { ...state, cards: [...state.cards, action.payload] };
-
     case CONSTANTS.CARDS_ERROR:
       return {
         error: action.payload,

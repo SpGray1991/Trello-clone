@@ -30,7 +30,7 @@ class cardController {
 
   async update(req, res) {
     try {
-      const updatedCard = await cardService.update(req.body);
+      const updatedCard = await cardService.update(req.body, req.params.id);
       return res.json(updatedCard);
     } catch (e) {
       res.status(500).json(e.message);

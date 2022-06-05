@@ -4,14 +4,16 @@ import CardContent from "@mui/material/CardContent";
 import "./TrelloCard.scss";
 import { useState } from "react";
 import React from "react";
-
 import Icon from "@mui/material/Icon";
 import TrelloFormEdit from "../TrelloFormEdit/TrelloFormEdit";
 import TrelloEditButton from "../TrelloEditButton/TrelloEditButton";
+import { useActions } from "../../hooks/useActions";
 
-const TrelloCard = React.memo(({ text, id, listId, index, dispatch }) => {
+const TrelloCard = React.memo(({ text, id, index }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [cardText, setText] = useState(text);
+
+  const { delCardAC, editCardAC } = useActions();
 
   const closeForm = (e) => {
     setIsEditing(false);
@@ -24,12 +26,12 @@ const TrelloCard = React.memo(({ text, id, listId, index, dispatch }) => {
   const saveCard = (e) => {
     e.preventDefault();
 
-    /* dispatch(editCard(id, listID, cardText)); */
+    editCardAC(cardText, id);
     setIsEditing(false);
   };
 
   const handleDeleteCard = (e) => {
-    /*  dispatch(deleteCard(id, listID)); */
+    delCardAC(id);
   };
 
   const renderEditForm = () => {

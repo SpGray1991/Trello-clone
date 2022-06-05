@@ -68,7 +68,12 @@ const TrelloList = ({ title, cards, listId }) => {
         {cards
           .filter((card) => card.listId === listId)
           .map((card, index) => (
-            <TrelloCard key={card._id} text={card.text} index={index} />
+            <TrelloCard
+              key={card._id}
+              text={card.text}
+              index={index}
+              id={card._id}
+            />
           ))}
 
         <TrelloActionButton listId={listId} />

@@ -19,11 +19,11 @@ class cardService {
     return card;
   }
 
-  async update(card) {
-    if (!card._id) {
+  async update(text, id) {
+    if (!id) {
       throw new Error("id не указан");
     }
-    const updatedCard = await cardModel.findByIdAndUpdate(card._id, card, {
+    const updatedCard = await cardModel.findByIdAndUpdate(id, text, {
       new: true,
     });
     return updatedCard;

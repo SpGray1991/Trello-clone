@@ -46,3 +46,33 @@ export const editListAC = (title, id) => {
     dispatch({ type: CONSTANTS.GET_LISTS, payload: response });
   };
 };
+
+export const sort = (
+  droppableIdStart,
+  droppableIdEnd,
+  droppableIndexStart,
+  droppableIndexEnd,
+  draggableId,
+  type
+) => {
+  console.log("droppableIdStart", droppableIdStart);
+  console.log("droppableIdEnd", droppableIdEnd);
+  console.log("droppableIndexStart", droppableIndexStart);
+  console.log("droppableIndexEnd", droppableIndexEnd);
+  console.log("draggableId", draggableId);
+  console.log("type", type);
+
+  return (dispatch, getState) => {
+    dispatch({
+      type: CONSTANTS.DRAG_HAPPENED,
+      payload: {
+        droppableIdStart,
+        droppableIdEnd,
+        droppableIndexEnd,
+        droppableIndexStart,
+        draggableId,
+        type,
+      },
+    });
+  };
+};

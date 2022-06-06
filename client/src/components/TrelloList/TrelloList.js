@@ -4,8 +4,10 @@ import "./TrelloList.scss";
 import { useState } from "react";
 import Icon from "@mui/material/Icon";
 import { useActions } from "../../hooks/useActions";
+import { Draggable } from "react-beautiful-dnd";
+import { Droppable } from "react-beautiful-dnd";
 
-const TrelloList = ({ title, cards, listId }) => {
+const TrelloList = ({ title, cards, listId, index }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [listTitle, setListTitle] = useState(title);
 
@@ -47,38 +49,60 @@ const TrelloList = ({ title, cards, listId }) => {
   };
 
   return (
-    <div className="container">
-      <div>
-        {isEditing ? (
-          renderEditInput()
-        ) : (
-          <div className="title-container" onClick={() => setIsEditing(true)}>
-            <h4 className="list-title">{title}</h4>
-            <Icon
-              className="delete-button-list"
-              onClick={handleDeleteList}
-              type="button"
-            >
-              delete
-            </Icon>
-          </div>
-        )}
-      </div>
-      <div>
-        {cards
-          .filter((card) => card.listId === listId)
-          .map((card, index) => (
-            <TrelloCard
-              key={card._id}
-              text={card.text}
-              index={index}
-              id={card._id}
-            />
-          ))}
+    <Draggable draggableId={String(listId)} index={index}>
+      {(provided) => {
+        return (
+          <div
+            className="container"
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef}
+          >
+            <Droppable droppableId={String(listId)} type="card">
+              {(provided) => {
+                return (
+                  <div>
+                    <div>
+                      {isEditing ? (
+                        renderEditInput()
+                      ) : (
+                        <div
+                          className="title-container"
+                          onClick={() => setIsEditing(true)}
+                        >
+                          <h4 className="list-title">{title}</h4>
+                          <Icon
+                            className="delete-button-list"
+                            onClick={handleDeleteList}
+                            type="button"
+                          >
+                            delete
+                          </Icon>
+                        </div>
+                      )}
+                    </div>
+                    <div {...provided.droppableProps} ref={provided.innerRef}>
+                      {cards
+                        .filter((card) => card.listId === listId)
+                        .map((card, index) => (
+                          <TrelloCard
+                            key={card._id}
+                            text={card.text}
+                            index={index}
+                            id={card._id}
+                          />
+                        ))}
 
-        <TrelloActionButton listId={listId} />
-      </div>
-    </div>
+                      <TrelloActionButton listId={listId} />
+                    </div>
+                  </div>
+                );
+              }}
+            </Droppable>
+          </div>
+        );
+      }}
+    </Draggable>
   );
 };
 

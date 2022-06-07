@@ -8,6 +8,7 @@ import Icon from "@mui/material/Icon";
 import TrelloFormEdit from "../TrelloFormEdit/TrelloFormEdit";
 import TrelloEditButton from "../TrelloEditButton/TrelloEditButton";
 import { useActions } from "../../hooks/useActions";
+import { Draggable } from "react-beautiful-dnd";
 
 const TrelloCard = React.memo(({ text, id, index }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -48,27 +49,37 @@ const TrelloCard = React.memo(({ text, id, index }) => {
 
   const renderCard = () => {
     return (
-      <div onDoubleClick={() => setIsEditing(true)}>
-        <Card className="card-container">
-          <Icon
-            className="edit-button-card"
-            onClick={() => setIsEditing(true)}
-            fontSize="small"
-          >
-            edit
-          </Icon>
-          <Icon
-            className="delete-button-card"
-            fontSize="small"
-            onMouseDown={handleDeleteCard}
-          >
-            delete
-          </Icon>
-          <CardContent>
-            <Typography>{text}</Typography>
-          </CardContent>
-        </Card>
-      </div>
+      <Draggable draggableId={String(id)} index={index}>
+        {(provided) => {
+          return (
+            <Card
+              className="card-container"
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+              ref={provided.innerRef}
+              onDoubleClick={() => setIsEditing(true)}
+            >
+              <Icon
+                className="edit-button-card"
+                onClick={() => setIsEditing(true)}
+                fontSize="small"
+              >
+                edit
+              </Icon>
+              <Icon
+                className="delete-button-card"
+                fontSize="small"
+                onMouseDown={handleDeleteCard}
+              >
+                delete
+              </Icon>
+              <CardContent>
+                <Typography>{text}</Typography>
+              </CardContent>
+            </Card>
+          );
+        }}
+      </Draggable>
     );
   };
 

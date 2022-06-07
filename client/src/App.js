@@ -10,7 +10,7 @@ function App() {
   const lists = useSelector((state) => state.lists.lists);
   const cards = useSelector((state) => state.cards.cards);
 
-  const { getListsAC, getCardsAC, sort } = useActions();
+  const { getListsAC, getCardsAC, editListPositionAC } = useActions();
 
   useEffect(() => {
     getListsAC();
@@ -23,26 +23,36 @@ function App() {
     if (!destination) {
       return;
     }
-
+    console.log("RESULT", result);
     console.log("onDragEnd:source.droppableId", source.droppableId);
     console.log("onDragEnd:destination.droppableId", destination.droppableId);
     console.log("onDragEnd:source.index", source.index);
     console.log("onDragEnd:destination.index", destination.index);
     console.log("onDragEnd:draggableId", draggableId);
     console.log("onDragEnd:type", type);
-    sort(
+    /*  sort(
       source.droppableId,
       destination.droppableId,
       source.index,
       destination.index,
       draggableId,
       type
-    );
+    ); */
+
+    /*  */
+    if (type === "list" && source.droppableId === destination.droppableId) {
+      editListPositionAC(destination.index, draggableId);
+    }
   };
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="lists" direction="horizontal" type="list">
+      <Droppable
+        droppableId="lists"
+        direction="horizontal"
+        type="list"
+        /*  editListPosition={editListPosition} */
+      >
         {(provided) => {
           return (
             <div
@@ -56,7 +66,7 @@ function App() {
                   title={list.title}
                   cards={cards}
                   listId={list._id}
-                  index={index}
+                  indexList={index}
                 />
               ))}
               {provided.placeholder}

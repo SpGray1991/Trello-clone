@@ -7,7 +7,7 @@ class listService {
   }
 
   async getAll() {
-    const lists = await listModel.find();
+    const lists = await listModel.find().sort("order").exec();
     return lists;
   }
 

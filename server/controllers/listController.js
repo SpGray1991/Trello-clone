@@ -3,11 +3,45 @@ import listService from "../service/listService.js";
 class listController {
   async create(req, res) {
     try {
-      const list = await listService.create(req.body);
+      const { title } = req.body;
+
+      const lists = await listService.getAll();
+
+      const list = await listService.create({
+        title,
+        order: lists.length + 1,
+      });
       res.json(list);
+
+      /* const list = await listService.create(req.body);
+      res.json(list); */
     } catch (e) {
       res.status(500).json(e);
     }
+  }
+
+  async updateListOrder(req, res) {
+    const { sourceId, destinationId, sourceIndex, destinationIndex } = req.body;
+
+    // pull down all lists for board
+    const lists = await listService.getAll();
+
+    // // perform reorder
+    const [list] = lists.splice(sourceIndex, 1);
+    lists.splice(destinationIndex, 0, list);
+
+    const orderedLists = lists.map((l, index) => {
+      return { id: l._id, sortOrder: index + 1 };
+    });
+
+    //TODO: Multi update implementation rather than separate queries
+    orderedLists.forEach(async (l) => {
+      await listService.update(l.id, {
+        sortOrder: l.sortOrder,
+      });
+    });
+
+    return res.status(200).json(lists);
   }
 
   async getAll(req, res) {

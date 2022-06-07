@@ -48,7 +48,6 @@ const TrelloForm = ({ list, closeForm, listId }) => {
       </Card>
       <div className="formButtonGroup">
         <Button
-          className="bbbb"
           variant="contained"
           onMouseDown={list ? handleAddList : handleAddCard}
         >

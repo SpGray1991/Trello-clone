@@ -7,7 +7,7 @@ import { useActions } from "../../hooks/useActions";
 import { Draggable } from "react-beautiful-dnd";
 import { Droppable } from "react-beautiful-dnd";
 
-const TrelloList = ({ title, cards, listId, index }) => {
+const TrelloList = ({ title, cards, listId, indexList }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [listTitle, setListTitle] = useState(title);
 
@@ -49,7 +49,7 @@ const TrelloList = ({ title, cards, listId, index }) => {
   };
 
   return (
-    <Draggable draggableId={String(listId)} index={index}>
+    <Draggable draggableId={String(listId)} index={indexList}>
       {(provided) => {
         return (
           <div
@@ -92,8 +92,11 @@ const TrelloList = ({ title, cards, listId, index }) => {
                             id={card._id}
                           />
                         ))}
-
-                      <TrelloActionButton listId={listId} />
+                      {provided.placeholder}
+                      <TrelloActionButton
+                        listId={listId}
+                        indexList={indexList}
+                      />
                     </div>
                   </div>
                 );

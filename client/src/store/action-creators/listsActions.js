@@ -47,7 +47,16 @@ export const editListAC = (title, id) => {
   };
 };
 
-export const sort = (
+export const editListPositionAC = (indexList, id) => {
+  console.log("EDIT", indexList, id);
+  return async (dispatch) => {
+    await listsApi.editListPosition(indexList, id);
+    const response = await listsApi.getLists();
+    dispatch({ type: CONSTANTS.GET_LISTS, payload: response });
+  };
+};
+
+/* export const sort = (
   droppableIdStart,
   droppableIdEnd,
   droppableIndexStart,
@@ -75,4 +84,4 @@ export const sort = (
       },
     });
   };
-};
+}; */

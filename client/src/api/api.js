@@ -29,6 +29,13 @@ export const listsApi = {
         return response.data;
       });
   },
+  async editListPosition(order, id) {
+    return await axios
+      .put(`http://localhost:5000/apiLists/lists/${id}`, { order })
+      .then((response) => {
+        return response.data;
+      });
+  },
   async delList(id) {
     console.log("ID", id);
     return await axios

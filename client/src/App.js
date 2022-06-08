@@ -23,13 +23,13 @@ function App() {
     if (!destination) {
       return;
     }
-    console.log("RESULT", result);
+    /*   console.log("RESULT", result);
     console.log("onDragEnd:source.droppableId", source.droppableId);
     console.log("onDragEnd:destination.droppableId", destination.droppableId);
     console.log("onDragEnd:source.index", source.index);
     console.log("onDragEnd:destination.index", destination.index);
     console.log("onDragEnd:draggableId", draggableId);
-    console.log("onDragEnd:type", type);
+    console.log("onDragEnd:type", type); */
     /*  sort(
       source.droppableId,
       destination.droppableId,
@@ -41,7 +41,12 @@ function App() {
 
     /*  */
     if (type === "list" && source.droppableId === destination.droppableId) {
-      editListPositionAC(destination.index, draggableId);
+      editListPositionAC(
+        source.droppableId,
+        destination.droppableId,
+        source.index,
+        destination.index
+      );
     }
   };
 

@@ -12,6 +12,7 @@ export const listsApi = {
     return await axios
       .get(`http://localhost:5000/apiLists/lists`)
       .then((response) => {
+        console.log("GET ALL sort", response.data);
         return response.data;
       });
   },
@@ -29,13 +30,28 @@ export const listsApi = {
         return response.data;
       });
   },
-  async editListPosition(order, id) {
+
+  async editListPosition(
+    sourceId,
+    destinationId,
+    sourceIndex,
+    destinationIndex
+  ) {
+    console.log("Начальный индекс листа", sourceIndex);
+    console.log("Конечный индекс листа", destinationIndex);
     return await axios
-      .put(`http://localhost:5000/apiLists/lists/${id}`, { order })
+      .patch(`http://localhost:5000/apiLists/lists/`, {
+        sourceId,
+        destinationId,
+        sourceIndex,
+        destinationIndex,
+      })
       .then((response) => {
+        console.log("resFront ответ из бека, до сортировки", response.data);
         return response.data;
       });
   },
+
   async delList(id) {
     console.log("ID", id);
     return await axios

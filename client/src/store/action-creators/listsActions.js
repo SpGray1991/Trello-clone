@@ -47,41 +47,20 @@ export const editListAC = (title, id) => {
   };
 };
 
-export const editListPositionAC = (indexList, id) => {
-  console.log("EDIT", indexList, id);
+export const editListPositionAC = (
+  sourceId,
+  destinationId,
+  sourceIndex,
+  destinationIndex
+) => {
   return async (dispatch) => {
-    await listsApi.editListPosition(indexList, id);
+    await listsApi.editListPosition(
+      sourceId,
+      destinationId,
+      sourceIndex,
+      destinationIndex
+    );
     const response = await listsApi.getLists();
     dispatch({ type: CONSTANTS.GET_LISTS, payload: response });
   };
 };
-
-/* export const sort = (
-  droppableIdStart,
-  droppableIdEnd,
-  droppableIndexStart,
-  droppableIndexEnd,
-  draggableId,
-  type
-) => {
-  console.log("droppableIdStart", droppableIdStart);
-  console.log("droppableIdEnd", droppableIdEnd);
-  console.log("droppableIndexStart", droppableIndexStart);
-  console.log("droppableIndexEnd", droppableIndexEnd);
-  console.log("draggableId", draggableId);
-  console.log("type", type);
-
-  return (dispatch, getState) => {
-    dispatch({
-      type: CONSTANTS.DRAG_HAPPENED,
-      payload: {
-        droppableIdStart,
-        droppableIdEnd,
-        droppableIndexEnd,
-        droppableIndexStart,
-        draggableId,
-        type,
-      },
-    });
-  };
-}; */

@@ -9,12 +9,9 @@ class listController {
 
       const list = await listService.create({
         title,
-        order: lists.length + 1,
+        order: lists.length,
       });
       res.json(list);
-
-      /* const list = await listService.create(req.body);
-      res.json(list); */
     } catch (e) {
       res.status(500).json(e);
     }
@@ -23,23 +20,30 @@ class listController {
   async updateListOrder(req, res) {
     const { sourceId, destinationId, sourceIndex, destinationIndex } = req.body;
 
-    // pull down all lists for board
-    const lists = await listService.getAll();
+    console.log("SERVER REQ Начальный индекс", sourceIndex);
+    console.log("SERVER REQ Конечный индекс", destinationIndex);
 
-    // // perform reorder
-    const [list] = lists.splice(sourceIndex, 1);
+    const lists = await listService.getAll();
+    console.log("Список  всех листов на бэке", lists);
+
+    const [list] = lists.splice(sourceIndex, 1); //выдергиваю из коллекции лист который перемещаю
+    console.log("list", list);
     lists.splice(destinationIndex, 0, list);
 
     const orderedLists = lists.map((l, index) => {
-      return { id: l._id, sortOrder: index + 1 };
+      return { id: l._id, sortOrder: index };
     });
 
-    //TODO: Multi update implementation rather than separate queries
+    console.log("orderedLists", orderedLists);
+
     orderedLists.forEach(async (l) => {
       await listService.update(l.id, {
-        sortOrder: l.sortOrder,
+        order: l.sortOrder,
       });
     });
+
+    const listsNew = await listService.getAll();
+    console.log("измененный lists", listsNew);
 
     return res.status(200).json(lists);
   }
@@ -64,7 +68,7 @@ class listController {
 
   async update(req, res) {
     try {
-      const updatedList = await listService.update(req.body, req.params.id);
+      const updatedList = await listService.update(req.params.id, req.body);
       return res.json(updatedList);
     } catch (e) {
       res.status(500).json(e.message);

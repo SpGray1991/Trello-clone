@@ -1,4 +1,4 @@
-import { listsApi } from "../../api/api";
+import { listsApi } from "../../api/apiLists";
 import { CONSTANTS } from "./constants";
 
 export const getListsAC = () => {

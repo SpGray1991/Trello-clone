@@ -18,40 +18,36 @@ class listController {
   }
 
   async updateListOrder(req, res) {
-    const { sourceId, destinationId, sourceIndex, destinationIndex } = req.body;
+    try {
+      const { sourceId, destinationId, sourceIndex, destinationIndex } =
+        req.body;
 
-    const lists = await listService.getAll();
+      const lists = await listService.getAll();
 
-    const [list] = lists.splice(sourceIndex, 1); //выдергиваю из коллекции лист который перемещаю
-    console.log("list", list);
-    lists.splice(destinationIndex, 0, list);
+      const [list] = lists.splice(sourceIndex, 1);
 
-    const orderedLists = lists.map((l, index) => {
-      return { id: l._id, sortOrder: index };
-    });
+      lists.splice(destinationIndex, 0, list);
 
-    orderedLists.forEach(async (l) => {
-      await listService.update(l.id, {
-        order: l.sortOrder,
+      const orderedLists = lists.map((l, index) => {
+        return { id: l._id, sortOrder: index };
       });
-    });
 
-    return res.status(200).json(lists);
+      orderedLists.forEach(async (l) => {
+        await listService.update(l.id, {
+          order: l.sortOrder,
+        });
+      });
+
+      return res.status(200).json(lists);
+    } catch (e) {
+      res.status(500).json(e);
+    }
   }
 
   async getAll(req, res) {
     try {
       const lists = await listService.getAll();
       return res.json(lists);
-    } catch (e) {
-      res.status(500).json(e);
-    }
-  }
-
-  async getOne(req, res) {
-    try {
-      const list = await listService.getOne(req.params.id);
-      return res.json(list);
     } catch (e) {
       res.status(500).json(e);
     }

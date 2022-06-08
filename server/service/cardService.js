@@ -7,21 +7,13 @@ class cardService {
   }
 
   async get({ listId }) {
-    const cards = await cardModel.find({ listId }).sort("order").exec();
+    const cards = await cardModel.find({ listId }).sort("order");
     return cards;
   }
 
   async getAll() {
     const cards = await cardModel.find();
     return cards;
-  }
-
-  async getOne(id) {
-    if (!id) {
-      throw new Error("не указан id");
-    }
-    const card = await cardModel.findById(id);
-    return card;
   }
 
   async update(id, data) {

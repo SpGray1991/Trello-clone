@@ -7,16 +7,8 @@ class listService {
   }
 
   async getAll() {
-    const lists = await listModel.find().sort("order").exec();
+    const lists = await listModel.find().sort("order");
     return lists;
-  }
-
-  async getOne(id) {
-    if (!id) {
-      throw new Error("не указан id");
-    }
-    const list = await listModel.findById(id);
-    return list;
   }
 
   async update(listId, data) {

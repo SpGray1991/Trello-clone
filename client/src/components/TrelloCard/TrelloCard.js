@@ -6,7 +6,7 @@ import { useState } from "react";
 import React from "react";
 import Icon from "@mui/material/Icon";
 import TrelloFormEdit from "../TrelloFormEdit/TrelloFormEdit";
-import TrelloEditButton from "../TrelloEditButton/TrelloEditButton";
+import TrelloEditFormButton from "../TrelloEditFormButton/TrelloEditFormButton";
 import { useActions } from "../../hooks/useActions";
 import { Draggable } from "react-beautiful-dnd";
 
@@ -42,7 +42,7 @@ const TrelloCard = React.memo(({ text, id, index }) => {
         onChange={handleChange}
         closeForm={closeForm}
       >
-        <TrelloEditButton onClick={saveCard}>Save</TrelloEditButton>
+        <TrelloEditFormButton onClick={saveCard}>Save</TrelloEditFormButton>
       </TrelloFormEdit>
     );
   };

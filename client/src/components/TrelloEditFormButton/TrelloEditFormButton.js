@@ -1,7 +1,7 @@
 import Button from "@mui/material/Button";
-import "./TrelloEditButton.scss";
+import "./TrelloEditFormButton.scss";
 
-const TrelloEditButton = ({ children, onClick }) => {
+const TrelloEditFormButton = ({ children, onClick }) => {
   return (
     <Button className="edit-button" variant="contained" onMouseDown={onClick}>
       {children}
@@ -9,4 +9,4 @@ const TrelloEditButton = ({ children, onClick }) => {
   );
 };
 
-export default TrelloEditButton;
+export default TrelloEditFormButton;

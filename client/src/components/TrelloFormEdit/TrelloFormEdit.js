@@ -5,7 +5,7 @@ import Icon from "@mui/material/Icon";
 import "./TrelloFormEdit.scss";
 
 const TrelloFormEdit = React.memo(
-  ({ list, text = "", onChange, closeForm, children }) => {
+  ({ text = "", onChange, closeForm, children }) => {
     const handleFocus = (e) => {
       e.target.select();
     };

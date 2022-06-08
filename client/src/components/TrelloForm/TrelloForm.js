@@ -53,7 +53,9 @@ const TrelloForm = ({ list, closeForm, listId }) => {
         >
           {buttonTitle}
         </Button>
-        <Icon className="closeBtn">close</Icon>
+        <Icon className="closeBtn" onMouseDown={closeForm}>
+          close
+        </Icon>
       </div>
     </div>
   );

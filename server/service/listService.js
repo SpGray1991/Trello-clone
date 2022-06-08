@@ -8,7 +8,6 @@ class listService {
 
   async getAll() {
     const lists = await listModel.find().sort("order").exec();
-    console.log("GET ALL sort", lists);
     return lists;
   }
 

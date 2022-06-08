@@ -20,11 +20,7 @@ class listController {
   async updateListOrder(req, res) {
     const { sourceId, destinationId, sourceIndex, destinationIndex } = req.body;
 
-    console.log("SERVER REQ Начальный индекс", sourceIndex);
-    console.log("SERVER REQ Конечный индекс", destinationIndex);
-
     const lists = await listService.getAll();
-    console.log("Список  всех листов на бэке", lists);
 
     const [list] = lists.splice(sourceIndex, 1); //выдергиваю из коллекции лист который перемещаю
     console.log("list", list);
@@ -34,16 +30,11 @@ class listController {
       return { id: l._id, sortOrder: index };
     });
 
-    console.log("orderedLists", orderedLists);
-
     orderedLists.forEach(async (l) => {
       await listService.update(l.id, {
         order: l.sortOrder,
       });
     });
-
-    const listsNew = await listService.getAll();
-    console.log("измененный lists", listsNew);
 
     return res.status(200).json(lists);
   }

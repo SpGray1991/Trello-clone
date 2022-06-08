@@ -12,7 +12,6 @@ export const listsApi = {
     return await axios
       .get(`http://localhost:5000/apiLists/lists`)
       .then((response) => {
-        console.log("GET ALL sort", response.data);
         return response.data;
       });
   },

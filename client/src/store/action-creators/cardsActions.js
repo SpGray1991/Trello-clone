@@ -5,6 +5,7 @@ export const getCardsAC = () => {
   return async (dispatch) => {
     try {
       const response = await cardsApi.getCards();
+      console.log("WORK", response);
       dispatch({ type: CONSTANTS.GET_CARDS, payload: response });
     } catch (e) {
       dispatch({
@@ -43,5 +44,34 @@ export const editCardAC = (text, id) => {
     await cardsApi.editCard(text, id);
     const response = await cardsApi.getCards();
     dispatch({ type: CONSTANTS.GET_CARDS, payload: response });
+  };
+};
+
+export const editCardPositionAC = (
+  sourceId,
+  destinationId,
+  sourceIndex,
+  destinationIndex,
+  type
+) => {
+  return async (dispatch) => {
+    try {
+      await cardsApi.editCardPosition(
+        sourceId,
+        destinationId,
+        sourceIndex,
+        destinationIndex,
+        type
+      );
+      console.log("work");
+      const response = await cardsApi.getCards();
+      console.log("card Actions res getAll", response);
+      dispatch({ type: CONSTANTS.GET_CARDS, payload: response });
+    } catch (e) {
+      dispatch({
+        type: CONSTANTS.CARDS_ERROR,
+        payload: "Произошла ошибка при загрузке карточек!",
+      });
+    }
   };
 };

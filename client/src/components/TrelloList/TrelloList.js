@@ -48,6 +48,16 @@ const TrelloList = ({ title, cards, listId, indexList }) => {
     console.log("DEL");
   };
 
+  function sortOrder(a, b) {
+    if (a.order > b.order) return 1;
+    if (a.order < b.order) return -1;
+    return 0;
+  }
+
+  const sortCards = cards
+    .filter((card) => card.listId === listId)
+    .sort(sortOrder);
+
   return (
     <Draggable draggableId={String(listId)} index={indexList}>
       {(provided) => {
@@ -82,16 +92,14 @@ const TrelloList = ({ title, cards, listId, indexList }) => {
                       )}
                     </div>
                     <div {...provided.droppableProps} ref={provided.innerRef}>
-                      {cards
-                        .filter((card) => card.listId === listId)
-                        .map((card, index) => (
-                          <TrelloCard
-                            key={card._id}
-                            text={card.text}
-                            index={index}
-                            id={card._id}
-                          />
-                        ))}
+                      {sortCards.map((card, index) => (
+                        <TrelloCard
+                          key={card._id}
+                          text={card.text}
+                          index={index}
+                          id={card._id}
+                        />
+                      ))}
                       {provided.placeholder}
                       <TrelloActionButton
                         listId={listId}

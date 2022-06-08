@@ -6,6 +6,11 @@ class cardService {
     return createdCard;
   }
 
+  async get({ listId }) {
+    const cards = await cardModel.find({ listId }).sort("order").exec();
+    return cards;
+  }
+
   async getAll() {
     const cards = await cardModel.find();
     return cards;
@@ -19,14 +24,12 @@ class cardService {
     return card;
   }
 
-  async update(text, id) {
+  async update(id, data) {
     if (!id) {
       throw new Error("id не указан");
     }
-    const updatedCard = await cardModel.findByIdAndUpdate(id, text, {
-      new: true,
-    });
-    return updatedCard;
+    const updatedCard = await cardModel.findByIdAndUpdate(id, data);
+    return updatedCard.save();
   }
 
   async delete(id) {

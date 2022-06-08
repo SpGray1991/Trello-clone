@@ -10,7 +10,8 @@ function App() {
   const lists = useSelector((state) => state.lists.lists);
   const cards = useSelector((state) => state.cards.cards);
 
-  const { getListsAC, getCardsAC, editListPositionAC } = useActions();
+  const { getListsAC, getCardsAC, editListPositionAC, editCardPositionAC } =
+    useActions();
 
   useEffect(() => {
     getListsAC();
@@ -18,30 +19,31 @@ function App() {
   }, []);
 
   const onDragEnd = (result) => {
-    const { destination, source, draggableId, type } = result;
+    const { destination, source, type } = result;
 
     if (!destination) {
       return;
     }
-    /*   console.log("RESULT", result);
-    console.log("onDragEnd:source.droppableId", source.droppableId);
-    console.log("onDragEnd:destination.droppableId", destination.droppableId);
-    console.log("onDragEnd:source.index", source.index);
-    console.log("onDragEnd:destination.index", destination.index);
-    console.log("onDragEnd:draggableId", draggableId);
-    console.log("onDragEnd:type", type); */
-    /*  sort(
-      source.droppableId,
-      destination.droppableId,
-      source.index,
-      destination.index,
-      draggableId,
-      type
-    ); */
-
-    /*  */
-    if (type === "list" && source.droppableId === destination.droppableId) {
+    console.log("type on DRAG", type);
+    if (type === "list") {
       editListPositionAC(
+        source.droppableId,
+        destination.droppableId,
+        source.index,
+        destination.index,
+        type
+      );
+    }
+
+    if (type === "card") {
+      if (
+        destination.droppableId === source.droppableId &&
+        destination.index === source.index
+      ) {
+        return;
+      }
+
+      editCardPositionAC(
         source.droppableId,
         destination.droppableId,
         source.index,
@@ -52,12 +54,7 @@ function App() {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable
-        droppableId="lists"
-        direction="horizontal"
-        type="list"
-        /*  editListPosition={editListPosition} */
-      >
+      <Droppable droppableId="lists" direction="horizontal" type="list">
         {(provided) => {
           return (
             <div

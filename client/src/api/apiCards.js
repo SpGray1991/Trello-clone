@@ -30,6 +30,28 @@ export const cardsApi = {
         return response.data;
       });
   },
+
+  async editCardPosition(
+    sourceId,
+    destinationId,
+    sourceIndex,
+    destinationIndex,
+    type
+  ) {
+    return await axios
+      .patch(`http://localhost:5000/apiCards/cards/`, {
+        sourceId,
+        destinationId,
+        sourceIndex,
+        destinationIndex,
+        type,
+      })
+      .then((response) => {
+        console.log("resFront ответ из бека, до сортировки", response);
+        return response;
+      });
+  },
+
   async delCard(id) {
     return await axios
       .delete(`http://localhost:5000/apiCards/cards/${id}`)

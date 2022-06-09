@@ -42,10 +42,8 @@ export const delListAC = (id) => {
 
 export const editListAC = (title, id) => {
   return async (dispatch) => {
+    dispatch({ type: CONSTANTS.EDIT_LIST, payload: { title, id } });
     await listsApi.editList(title, id);
-
-    const response = await listsApi.getLists();
-    dispatch({ type: CONSTANTS.GET_LISTS, payload: response });
   };
 };
 
@@ -56,14 +54,18 @@ export const editListPositionAC = (
   destinationIndex
 ) => {
   return async (dispatch) => {
+    dispatch({
+      type: CONSTANTS.UPDATE_LIST_ORDER,
+      payload: {
+        sourceIndex,
+        destinationIndex,
+      },
+    });
     await listsApi.editListPosition(
       sourceId,
       destinationId,
       sourceIndex,
       destinationIndex
     );
-
-    const response = await listsApi.getLists();
-    dispatch({ type: CONSTANTS.GET_LISTS, payload: response });
   };
 };

@@ -1,4 +1,5 @@
 import cardModel from "../models/cardModel.js";
+import listModel from "../models/listModel.js";
 
 class cardService {
   async create(card) {
@@ -13,7 +14,11 @@ class cardService {
 
   async getAll() {
     const cards = await cardModel.find();
-    return cards;
+    const lists = await listModel.find();
+
+    const listWithCards = [lists, cards];
+
+    return listWithCards;
   }
 
   async update(id, data) {

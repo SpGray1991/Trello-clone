@@ -1,7 +1,6 @@
 import { CONSTANTS } from "../action-creators/constants";
 
 const initialState = {
-  cards: [],
   byId: [],
   error: null,
 };
@@ -9,17 +8,20 @@ const initialState = {
 export const cardsReducer = (state = initialState, action) => {
   switch (action.type) {
     case CONSTANTS.GET_CARDS:
-      console.log("Приходят из базы", action.payload);
+      const cardsForList = action.payload[1];
+
+      let lists = action.payload[0].map((l) => {
+        return {
+          listId: l._id,
+          cards: cardsForList.filter((c) => c.listId === l._id),
+        };
+      });
+
+      console.log("LISTS", lists);
 
       return {
-        cards: action.payload,
-        byId: arrayToArrays(action.payload),
+        byId: arrayToArrays(lists),
       };
-
-    /*  return {
-        error: null,
-        cards: action.payload,
-      }; */
 
     case CONSTANTS.UPDATE_CARD_ORDER:
       const { sourceId, destinationId, sourceIndex, destinationIndex } =
@@ -28,27 +30,28 @@ export const cardsReducer = (state = initialState, action) => {
       const cards = [...state.byId[sourceId]];
 
       if (sourceId !== destinationId) {
-        /*  const sourceCards = state.cards.filter((c) => c._id === sourceId);
-        const destinationCards = state.cards.filter(
-          (c) => c._id === destinationId
-        );
-        const card = sourceCards.splice(sourceIndex, 1);
+        console.log("sourceId", sourceId);
+        console.log("destinationId", destinationId);
+
+        const sourceCards = [...state.byId[sourceId]];
+        console.log("sourceCards", sourceCards);
+        const destinationCards = [...state.byId[destinationId]];
+        console.log("destinationCards", destinationCards);
+        const [card] = sourceCards.splice(sourceIndex, 1);
         destinationCards.splice(destinationIndex, 0, card);
+        const orderedDstCards = destinationCards.map((c, index) => {
+          return { ...c, order: index };
+        });
 
         return {
           ...state,
           byId: {
             ...state.byId,
-            [destinationId]: {
-              ...state.byId[destinationId],
-              cards: destinationCards,
-            },
-            [sourceId]: {
-              ...state.byId[sourceId],
-              cards: sourceCards,
-            },
+            [destinationId]: orderedDstCards,
+
+            [sourceId]: sourceCards,
           },
-        }; */
+        };
       } else {
         const [card] = cards.splice(sourceIndex, 1);
         cards.splice(destinationIndex, 0, card);
@@ -76,11 +79,26 @@ export const cardsReducer = (state = initialState, action) => {
   }
 };
 
-const arrayToArrays = (array) =>
+/* const arrayToArrays = (array) =>
   array.reduce((obj, item) => {
     if (!obj.hasOwnProperty(item.listId)) {
       obj[item.listId] = [];
     }
     obj[item.listId].push(item);
     return obj;
+  }, {}); */
+
+const arrayToArrays = (array) =>
+  array.reduce((obj, item) => {
+    if (!obj.hasOwnProperty(item.listId)) {
+      obj[item.listId] = [];
+    }
+    obj[item.listId].push(...item.cards);
+    return obj;
   }, {});
+
+/* const arrayToObject = (array) =>
+  array.reduce((obj, item) => {
+    obj[item._id] = item;
+    return obj;
+  }, {}); */

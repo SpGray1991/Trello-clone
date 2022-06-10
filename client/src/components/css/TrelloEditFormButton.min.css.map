@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "../TrelloEditFormButton/TrelloEditFormButton.scss"
+    ],
+    "names": [],
+    "file": "TrelloEditFormButton.min.css"
+}

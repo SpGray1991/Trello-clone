@@ -53,23 +53,25 @@ export const editCardPositionAC = (
   sourceId,
   destinationId,
   sourceIndex,
-  destinationIndex,
-  type
+  destinationIndex
 ) => {
   return async (dispatch) => {
-    try {
-      await cardsApi.editCardPosition(
+    dispatch({
+      type: CONSTANTS.UPDATE_CARD_ORDER,
+      payload: {
         sourceId,
         destinationId,
         sourceIndex,
         destinationIndex,
-        type
-      );
+      },
+    });
+    console.log("work");
 
-      const response = await cardsApi.getCards();
-      dispatch({ type: CONSTANTS.GET_CARDS, payload: response });
-    } catch (e) {
-      console.log(e);
-    }
+    await cardsApi.editCardPosition(
+      sourceId,
+      destinationId,
+      sourceIndex,
+      destinationIndex
+    );
   };
 };

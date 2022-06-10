@@ -33,9 +33,11 @@ class cardController {
       const { sourceId, destinationId, sourceIndex, destinationIndex } =
         req.body;
 
+      console.log("REQ", req.body);
+
       const srcCards = await cardService.get({ listId: sourceId });
       const dstCards = await cardService.get({ listId: destinationId });
-
+      console.log("srcCards", srcCards);
       let orderedSrcCards;
       let orderedDstCards;
 
@@ -47,12 +49,15 @@ class cardController {
         });
       } else {
         const [card] = srcCards.splice(sourceIndex, 1);
+        console.log("card", card);
         srcCards.splice(destinationIndex, 0, card);
       }
 
       orderedSrcCards = srcCards.map((c, index) => {
         return { id: c._id, sortOrder: index };
       });
+
+      console.log("orderedSrcCards", orderedSrcCards);
 
       if (!!orderedDstCards) {
         orderedDstCards.forEach(async (c) => {

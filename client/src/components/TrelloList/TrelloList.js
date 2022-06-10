@@ -7,12 +7,12 @@ import { useActions } from "../../hooks/useActions";
 import { Draggable } from "react-beautiful-dnd";
 import { Droppable } from "react-beautiful-dnd";
 
-const TrelloList = ({ title, cards, listId, indexList }) => {
+const TrelloList = ({ title, listId, cards, indexList }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [listTitle, setListTitle] = useState(title);
 
   const { delListAC, editListAC } = useActions();
-
+  console.log("cards", cards);
   const renderEditInput = () => {
     return (
       <form onSubmit={handleFinishEditing}>
@@ -45,7 +45,6 @@ const TrelloList = ({ title, cards, listId, indexList }) => {
 
   const handleDeleteList = () => {
     delListAC(listId);
-    console.log("DEL");
   };
 
   function sortOrder(a, b) {
@@ -53,10 +52,6 @@ const TrelloList = ({ title, cards, listId, indexList }) => {
     if (a.order < b.order) return -1;
     return 0;
   }
-
-  const sortCards = cards
-    .filter((card) => card.listId === listId)
-    .sort(sortOrder);
 
   return (
     <Draggable draggableId={String(listId)} index={indexList}>
@@ -92,14 +87,18 @@ const TrelloList = ({ title, cards, listId, indexList }) => {
                       )}
                     </div>
                     <div {...provided.droppableProps} ref={provided.innerRef}>
-                      {sortCards.map((card, index) => (
-                        <TrelloCard
-                          key={card._id}
-                          text={card.text}
-                          index={index}
-                          id={card._id}
-                        />
-                      ))}
+                      {cards.hasOwnProperty(listId)
+                        ? cards[listId]
+                            .sort(sortOrder)
+                            .map((card, index) => (
+                              <TrelloCard
+                                key={card._id}
+                                text={card.text}
+                                index={index}
+                                id={card._id}
+                              />
+                            ))
+                        : []}
                       {provided.placeholder}
                       <TrelloActionButton
                         listId={listId}

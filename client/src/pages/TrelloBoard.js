@@ -8,7 +8,8 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 function TrelloBoard() {
   const lists = useSelector((state) => state.lists.lists);
-  const cards = useSelector((state) => state.cards.cards);
+  const cards = useSelector((state) => state.cards.byId);
+  console.log("Cards COMP BYID", cards);
 
   const { getListsAC, getCardsAC, editListPositionAC, editCardPositionAC } =
     useActions();
@@ -65,8 +66,8 @@ function TrelloBoard() {
                 <TrelloList
                   key={list._id}
                   title={list.title}
-                  cards={cards}
                   listId={list._id}
+                  cards={cards}
                   indexList={index}
                 />
               ))}

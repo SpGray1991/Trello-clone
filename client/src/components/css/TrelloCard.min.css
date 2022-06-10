@@ -1,0 +1,2 @@
+.card-container{margin:0 0 8px 0;position:relative;max-width:100%;word-wrap:break-word}.edit-button-card{position:absolute;display:none !important;right:5px;top:5px;opacity:0.5}.card-container:hover .edit-button-card{display:block !important;cursor:pointer}.edit-button-card:hover{opacity:0.8}.delete-button-card{position:absolute;display:none !important;right:5px;bottom:5px;opacity:0.5}.card-container:hover .delete-button-card{display:block !important;cursor:pointer}.delete-button-card:hover{opacity:0.8}
+/*# sourceMappingURL=TrelloCard.min.css.map */

@@ -10,7 +10,7 @@ import TrelloEditFormButton from "../TrelloEditFormButton/TrelloEditFormButton";
 import { useActions } from "../../hooks/useActions";
 import { Draggable } from "react-beautiful-dnd";
 
-const TrelloCard = React.memo(({ text, id, index }) => {
+const TrelloCard = React.memo(({ text, id, index, listId }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [cardText, setText] = useState(text);
 
@@ -27,12 +27,12 @@ const TrelloCard = React.memo(({ text, id, index }) => {
   const saveCard = (e) => {
     e.preventDefault();
 
-    editCardAC(cardText, id);
+    editCardAC(cardText, id, listId);
     setIsEditing(false);
   };
 
   const handleDeleteCard = (e) => {
-    delCardAC(id);
+    delCardAC(id, listId);
   };
 
   const renderEditForm = () => {

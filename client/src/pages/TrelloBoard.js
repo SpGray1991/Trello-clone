@@ -9,7 +9,6 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 function TrelloBoard() {
   const lists = useSelector((state) => state.lists.lists);
   const cards = useSelector((state) => state.cards.byId);
-  console.log("Cards COMP BYID", cards);
 
   const { getListsAC, getCardsAC, editListPositionAC, editCardPositionAC } =
     useActions();

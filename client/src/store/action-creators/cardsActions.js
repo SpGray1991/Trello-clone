@@ -18,10 +18,9 @@ export const getCardsAC = () => {
 export const addCardAC = (text, listId) => {
   return async (dispatch) => {
     try {
-      await cardsApi.createCard(text, listId);
+      const response = await cardsApi.createCard(text, listId);
 
-      const response = await cardsApi.getCards();
-      dispatch({ type: CONSTANTS.GET_CARDS, payload: response });
+      dispatch({ type: CONSTANTS.ADD_CARD, payload: response });
     } catch (e) {
       dispatch({
         type: CONSTANTS.CARDS_ERROR,
@@ -31,21 +30,19 @@ export const addCardAC = (text, listId) => {
   };
 };
 
-export const delCardAC = (id) => {
+export const delCardAC = (idCard, idList) => {
   return async (dispatch) => {
-    await cardsApi.delCard(id);
+    dispatch({ type: CONSTANTS.DEL_CARD, payload: { idCard, idList } });
 
-    const response = await cardsApi.getCards();
-    dispatch({ type: CONSTANTS.GET_CARDS, payload: response });
+    await cardsApi.delCard(idCard);
   };
 };
 
-export const editCardAC = (text, id) => {
+export const editCardAC = (text, id, listID) => {
   return async (dispatch) => {
-    await cardsApi.editCard(text, id);
+    dispatch({ type: CONSTANTS.EDIT_CARD, payload: { text, id, listID } });
 
-    const response = await cardsApi.getCards();
-    dispatch({ type: CONSTANTS.GET_CARDS, payload: response });
+    await cardsApi.editCard(text, id);
   };
 };
 
@@ -65,7 +62,6 @@ export const editCardPositionAC = (
         destinationIndex,
       },
     });
-    console.log("work");
 
     await cardsApi.editCardPosition(
       sourceId,

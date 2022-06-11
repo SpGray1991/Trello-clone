@@ -1,5 +1,6 @@
 import { listsApi } from "../../api/apiLists";
 import { CONSTANTS } from "./constants";
+import { cardsApi } from "../../api/apiCards";
 
 export const getListsAC = () => {
   return async (dispatch) => {
@@ -18,10 +19,11 @@ export const getListsAC = () => {
 export const addListAC = (title) => {
   return async (dispatch) => {
     try {
-      await listsApi.createList(title);
+      const response = await listsApi.createList(title);
+      dispatch({ type: CONSTANTS.ADD_LIST, payload: response });
 
-      const response = await listsApi.getLists();
-      dispatch({ type: CONSTANTS.GET_LISTS, payload: response });
+      const res = await cardsApi.getCards();
+      dispatch({ type: CONSTANTS.GET_CARDS, payload: res });
     } catch (e) {
       dispatch({
         type: CONSTANTS.LISTS_ERROR,
@@ -33,16 +35,16 @@ export const addListAC = (title) => {
 
 export const delListAC = (id) => {
   return async (dispatch) => {
-    await listsApi.delList(id);
+    dispatch({ type: CONSTANTS.DEL_LIST, payload: id });
 
-    const response = await listsApi.getLists();
-    dispatch({ type: CONSTANTS.GET_LISTS, payload: response });
+    await listsApi.delList(id);
   };
 };
 
 export const editListAC = (title, id) => {
   return async (dispatch) => {
     dispatch({ type: CONSTANTS.EDIT_LIST, payload: { title, id } });
+
     await listsApi.editList(title, id);
   };
 };
@@ -61,6 +63,7 @@ export const editListPositionAC = (
         destinationIndex,
       },
     });
+
     await listsApi.editListPosition(
       sourceId,
       destinationId,

@@ -25,8 +25,10 @@ class cardService {
     if (!id) {
       throw new Error("id не указан");
     }
-    const updatedCard = await cardModel.findByIdAndUpdate(id, data);
-    return updatedCard.save();
+    const updatedCard = await cardModel.findByIdAndUpdate(id, data, {
+      new: true,
+    });
+    return updatedCard;
   }
 
   async delete(id) {

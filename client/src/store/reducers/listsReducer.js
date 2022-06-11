@@ -16,7 +16,7 @@ export const listsReducer = (state = initialState, action) => {
     case CONSTANTS.EDIT_LIST:
       const payload = action.payload;
 
-      const test = state.lists.map((l) => {
+      const listsEdit = state.lists.map((l) => {
         if (l._id === payload.id) {
           return Object.assign({}, l, { title: payload.title });
         }
@@ -24,7 +24,7 @@ export const listsReducer = (state = initialState, action) => {
       });
 
       return {
-        lists: test,
+        lists: listsEdit,
       };
 
     case CONSTANTS.UPDATE_LIST_ORDER:
@@ -37,6 +37,15 @@ export const listsReducer = (state = initialState, action) => {
 
       return {
         lists: lists,
+      };
+
+    case CONSTANTS.ADD_LIST:
+      return { ...state, lists: [...state.lists, action.payload] };
+
+    case CONSTANTS.DEL_LIST:
+      return {
+        ...state,
+        lists: state.lists.filter((f) => f._id !== action.payload),
       };
 
     case CONSTANTS.LISTS_ERROR:

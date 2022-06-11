@@ -17,8 +17,6 @@ export const cardsReducer = (state = initialState, action) => {
         };
       });
 
-      console.log("LISTS", lists);
-
       return {
         byId: arrayToArrays(lists),
       };
@@ -30,13 +28,10 @@ export const cardsReducer = (state = initialState, action) => {
       const cards = [...state.byId[sourceId]];
 
       if (sourceId !== destinationId) {
-        console.log("sourceId", sourceId);
-        console.log("destinationId", destinationId);
-
         const sourceCards = [...state.byId[sourceId]];
-        console.log("sourceCards", sourceCards);
+
         const destinationCards = [...state.byId[destinationId]];
-        console.log("destinationCards", destinationCards);
+
         const [card] = sourceCards.splice(sourceIndex, 1);
         destinationCards.splice(destinationIndex, 0, card);
         const orderedDstCards = destinationCards.map((c, index) => {
@@ -67,6 +62,48 @@ export const cardsReducer = (state = initialState, action) => {
           },
         };
       }
+
+    case CONSTANTS.EDIT_CARD:
+      const { text, id, listID } = action.payload;
+
+      const cardsById = [...state.byId[listID]];
+
+      const cardById = cardsById.map((c) => {
+        if (c._id === id) {
+          return Object.assign({}, c, { text: text });
+        }
+        return c;
+      });
+
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [listID]: cardById,
+        },
+      };
+
+    case CONSTANTS.ADD_CARD:
+      const { listId } = action.payload;
+
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [listId]: [...state.byId[listId], action.payload],
+        },
+      };
+
+    case CONSTANTS.DEL_CARD:
+      const { idCard, idList } = action.payload;
+
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [idList]: [...state.byId[idList].filter((c) => c._id !== idCard)],
+        },
+      };
 
     case CONSTANTS.CARDS_ERROR:
       return {

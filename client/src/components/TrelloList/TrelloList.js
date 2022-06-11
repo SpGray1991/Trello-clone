@@ -12,7 +12,7 @@ const TrelloList = ({ title, listId, cards, indexList }) => {
   const [listTitle, setListTitle] = useState(title);
 
   const { delListAC, editListAC } = useActions();
-  console.log("cards", cards);
+
   const renderEditInput = () => {
     return (
       <form onSubmit={handleFinishEditing}>
@@ -96,6 +96,7 @@ const TrelloList = ({ title, listId, cards, indexList }) => {
                                 text={card.text}
                                 index={index}
                                 id={card._id}
+                                listId={listId}
                               />
                             ))
                         : []}

@@ -4,7 +4,7 @@
   width: 300px;
   padding: 8px;
   height: 100%;
-  margin-right: 8px;
+  margin-right: 20px;
 }
 
 .input-style {
@@ -26,6 +26,10 @@
 }
 
 .list-title {
+  width: 240px;
+  padding-left: 5px;
+  border-radius: 3px;
+  word-wrap: break-word;
   transition: background 0.3s ease-in;
   .title-container:hover & {
     background: #ccc;

@@ -35,17 +35,25 @@ export const addListAC = (title) => {
 
 export const delListAC = (id) => {
   return async (dispatch) => {
-    dispatch({ type: CONSTANTS.DEL_LIST, payload: id });
+    try {
+      dispatch({ type: CONSTANTS.DEL_LIST, payload: id });
 
-    await listsApi.delList(id);
+      await listsApi.delList(id);
+    } catch (e) {
+      console.log(e);
+    }
   };
 };
 
 export const editListAC = (title, id) => {
   return async (dispatch) => {
-    dispatch({ type: CONSTANTS.EDIT_LIST, payload: { title, id } });
+    try {
+      dispatch({ type: CONSTANTS.EDIT_LIST, payload: { title, id } });
 
-    await listsApi.editList(title, id);
+      await listsApi.editList(title, id);
+    } catch (e) {
+      console.log(e);
+    }
   };
 };
 
@@ -56,19 +64,23 @@ export const editListPositionAC = (
   destinationIndex
 ) => {
   return async (dispatch) => {
-    dispatch({
-      type: CONSTANTS.UPDATE_LIST_ORDER,
-      payload: {
-        sourceIndex,
-        destinationIndex,
-      },
-    });
+    try {
+      dispatch({
+        type: CONSTANTS.UPDATE_LIST_ORDER,
+        payload: {
+          sourceIndex,
+          destinationIndex,
+        },
+      });
 
-    await listsApi.editListPosition(
-      sourceId,
-      destinationId,
-      sourceIndex,
-      destinationIndex
-    );
+      await listsApi.editListPosition(
+        sourceId,
+        destinationId,
+        sourceIndex,
+        destinationIndex
+      );
+    } catch (e) {
+      console.log(e);
+    }
   };
 };

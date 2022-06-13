@@ -16,9 +16,9 @@ class cardService {
     const cards = await cardModel.find();
     const lists = await listModel.find();
 
-    const listWithCards = [lists, cards];
+    const listsWithCards = [lists, cards];
 
-    return listWithCards;
+    return listsWithCards;
   }
 
   async update(id, data) {

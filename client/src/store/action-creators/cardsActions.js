@@ -32,17 +32,25 @@ export const addCardAC = (text, listId) => {
 
 export const delCardAC = (idCard, idList) => {
   return async (dispatch) => {
-    dispatch({ type: CONSTANTS.DEL_CARD, payload: { idCard, idList } });
+    try {
+      dispatch({ type: CONSTANTS.DEL_CARD, payload: { idCard, idList } });
 
-    await cardsApi.delCard(idCard);
+      await cardsApi.delCard(idCard);
+    } catch (e) {
+      console.log(e);
+    }
   };
 };
 
 export const editCardAC = (text, id, listID) => {
   return async (dispatch) => {
-    dispatch({ type: CONSTANTS.EDIT_CARD, payload: { text, id, listID } });
+    try {
+      dispatch({ type: CONSTANTS.EDIT_CARD, payload: { text, id, listID } });
 
-    await cardsApi.editCard(text, id);
+      await cardsApi.editCard(text, id);
+    } catch (e) {
+      console.log(e);
+    }
   };
 };
 
@@ -53,21 +61,25 @@ export const editCardPositionAC = (
   destinationIndex
 ) => {
   return async (dispatch) => {
-    dispatch({
-      type: CONSTANTS.UPDATE_CARD_ORDER,
-      payload: {
+    try {
+      dispatch({
+        type: CONSTANTS.UPDATE_CARD_ORDER,
+        payload: {
+          sourceId,
+          destinationId,
+          sourceIndex,
+          destinationIndex,
+        },
+      });
+
+      await cardsApi.editCardPosition(
         sourceId,
         destinationId,
         sourceIndex,
-        destinationIndex,
-      },
-    });
-
-    await cardsApi.editCardPosition(
-      sourceId,
-      destinationId,
-      sourceIndex,
-      destinationIndex
-    );
+        destinationIndex
+      );
+    } catch (e) {
+      console.log(e);
+    }
   };
 };

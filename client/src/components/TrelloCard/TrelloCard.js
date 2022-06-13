@@ -73,8 +73,8 @@ const TrelloCard = React.memo(({ text, id, index, listId }) => {
               >
                 delete
               </Icon>
-              <CardContent>
-                <Typography>{text}</Typography>
+              <CardContent className="card-content">
+                <Typography className="typography">{text}</Typography>
               </CardContent>
             </Card>
           );

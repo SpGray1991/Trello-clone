@@ -116,15 +116,6 @@ export const cardsReducer = (state = initialState, action) => {
   }
 };
 
-/* const arrayToArrays = (array) =>
-  array.reduce((obj, item) => {
-    if (!obj.hasOwnProperty(item.listId)) {
-      obj[item.listId] = [];
-    }
-    obj[item.listId].push(item);
-    return obj;
-  }, {}); */
-
 const arrayToArrays = (array) =>
   array.reduce((obj, item) => {
     if (!obj.hasOwnProperty(item.listId)) {
@@ -133,9 +124,3 @@ const arrayToArrays = (array) =>
     obj[item.listId].push(...item.cards);
     return obj;
   }, {});
-
-/* const arrayToObject = (array) =>
-  array.reduce((obj, item) => {
-    obj[item._id] = item;
-    return obj;
-  }, {}); */

@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,eAAe,CAAC;EACd,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,GAAG;EACnB,YAAY,EAAE,IAAI;EAClB,WAAW,EAAE,IAAI;EACjB,MAAM,EAAE,MAAM;CACf",
+    "sources": [
+        "../pages/TrelloBoard.scss"
+    ],
+    "names": [],
+    "file": "TrelloBoard.css"
+}

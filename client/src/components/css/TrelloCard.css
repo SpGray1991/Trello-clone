@@ -1,7 +1,21 @@
 .card-container {
-  margin: 0 0 8px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 0 15px 0;
   position: relative;
-  max-width: 100%;
+}
+
+.card-content {
+  padding-bottom: 16px !important;
+  word-wrap: break-word;
+}
+
+.typography {
+  width: 240px;
   word-wrap: break-word;
 }
 
